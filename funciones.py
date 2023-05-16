@@ -21,7 +21,7 @@ def menu (lista):
         print("14.- Heroe mas alto genero F")
         print("15.- Promedio de la altura de heroes masculinos")
         print("16.- Promedio de la altura de heroes femeninos")
-        print("17.- Informar nombres de la opción 10-11-12-13")
+        print("17.- Informar nombres de la opción 11-12-13-14")
         print("18.- Informar cantidad de superheroes segun su color de ojos")
         print("19.- Informar cantidad de superheroes segun su color de pelo")
         print("20.- Informar cantidad de superheroes segun su inteligencia")
@@ -37,36 +37,41 @@ def menu (lista):
             stark_normalizar_datos (lista)
 
         elif opción == 2:
-            nombres= proyectar_heroe (lista, "nombre")
-            mostrar_lista (nombres , "Nombres de SuperHeroes")
+            stark_imprimir_nombres_heroes(lista)
             
         elif opción == 3:
-            mostrar_nombreAltura_heroes (lista)
+            stark_imprimir_nombres_alturas (lista)
 
         elif opción == 4:
-            alturaMaxima= proyectar_heroe (lista, "altura")
-            max = alturaMax (alturaMaxima)
-            print ("La altura maxima es ", max)
+            stark_calcular_imprimir_heroe(lista,"maximo","altura")
+            ##alturaMaxima= proyectar_heroe (lista, "altura")
+            #max = alturaMax (alturaMaxima)
+            #print ("La altura maxima es ", max)
 
         elif opción == 5:
-            alturaMinima = proyectar_heroe (lista, "altura")
-            min = alturaMin (alturaMinima)
-            print ("La altura minima es {}".format(min))
-        
+            stark_calcular_imprimir_heroe(lista, "minimo", "altura")
+            ##alturaMinima = proyectar_heroe (lista, "altura")
+            ##min = alturaMin (alturaMinima)
+            ##print ("La altura minima es {}".format(min))
+
+
         elif opción == 6:
-            promedio = proyectar_heroe (lista, "altura")
-            promedio = promedioAltura (promedio)
-            print ("La altura promedio es {:.3f}".format(promedio))    
+            stark_calcular_imprimir_promedio_altura (lista)
+            ##promedio = proyectar_heroe (lista, "altura")
+            ##promedio = promedioAltura (promedio)
+            ##print ("La altura promedio es {:.3f}".format(promedio))    
 
         elif opción == 7:
-            masPesado = proyectar_heroe (lista, "peso")  
-            masPesado = heroeMasPesado (masPesado)
-            print("El heroe mas pesado pesa {:.3f}".format (masPesado))
+            stark_calcular_imprimir_heroe(lista,"maximo","peso")
+            ##masPesado = proyectar_heroe (lista, "peso")  
+            ##masPesado = heroeMasPesado (masPesado)
+            ##print("El heroe mas pesado pesa {:.3f}".format (masPesado))
 
         elif opción == 8:
-            menosPesado = proyectar_heroe (lista, "peso")  
-            menosPesado = heroeMasPesado (menosPesado)
-            print("El heroe menos pesado pesa {:.3f}".format (menosPesado))
+            stark_calcular_imprimir_heroe(lista,"minimo","peso")
+            ##menosPesado = proyectar_heroe (lista, "peso")  
+            ##menosPesado = heroeMasPesado (menosPesado)
+            ##print("El heroe menos pesado pesa {:.3f}".format (menosPesado))
 
         elif opción == 10:
             femeninos = filtrar_heroes(lista, "genero", "F")
@@ -114,7 +119,15 @@ def menu (lista):
             femenino = promedioAltura(femenino)
             print ("El promedio de los heroes femeninos es {:.3f}" .format (femenino))
         
-        # elif opción == 17:
+        elif opción == 17:
+            fem_min = filtrar_heroes (lista, "genero", "F")
+            stark_calcular_imprimir_heroe(fem_min,"minimo","altura")
+            fem_max = filtrar_heroes (lista, "genero", "F")
+            stark_calcular_imprimir_heroe(fem_max,"maximo","altura")
+            men_min = filtrar_heroes(lista, "genero", "M")
+            stark_calcular_imprimir_heroe(men_min,"minimo","altura")
+            men_max = filtrar_heroes (lista, "genero", "M")
+            stark_calcular_imprimir_heroe(men_max,"maximo","altura")
             
         elif opción == 18:
             color_ojos =proyectar_heroe(lista, "color_ojos")
@@ -296,38 +309,3 @@ def mostrar_lista (lista: list, title: str )-> None:
     for item in lista:
         print (item)
         print ("")
-
-############################################################################
-##STARK02
-def stark_normalizar_datos(lista):
-    if len(lista) == 0:
-        print("Error: Lista de héroes vacía")
-        return
-
-    tipos_numericos = (int, float)
-
-    datos_modificados = False
-
-    for heroe in lista:
-        for key, value in heroe.items():
-            if isinstance(value, str):
-                # Verificar si se puede convertir a int
-                if key in ["fuerza"]:
-                    try:
-                        int_value = int(value)
-                        heroe[key] = int_value
-                        datos_modificados = True
-                    except ValueError:
-                        pass  # No se puede convertir a int
-                # Verificar si se puede convertir a float
-                elif key in ["altura", "peso"]:
-                    try:
-                        float_value = float(value)
-                        heroe[key] = float_value
-                        datos_modificados = True
-                    except ValueError:
-                        pass  # No se puede convertir a float
-
-    if datos_modificados:
-        print("Datos normalizados")
-
