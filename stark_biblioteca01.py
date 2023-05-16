@@ -41,11 +41,11 @@ def obtener_nombre(heroe):
 def imprimir_dato(dato):
     print(dato)
 
-def stark_imprimir_nombres_heroes(heroes):
-    if len(heroes) == 0:
+def stark_imprimir_nombres_heroes(lista):
+    if len(lista) == 0:
         return -1
 
-    for heroe in heroes:
+    for heroe in lista:
         nombre_formateado = obtener_nombre(heroe)
         imprimir_dato(nombre_formateado)
 
@@ -70,14 +70,14 @@ def stark_imprimir_nombres_alturas(lista):
 
     return None
 
-def calcular_max(heroes, key):
-    if len(heroes) == 0:
+def calcular_max(lista, key):
+    if len(lista) == 0:
         return None
 
     max_valor = float('-inf')
     heroe_max = None
 
-    for heroe in heroes:
+    for heroe in lista:
         valor = float(heroe.get(key, 0))
         if valor > max_valor:
             max_valor = valor
@@ -85,14 +85,14 @@ def calcular_max(heroes, key):
 
     return heroe_max
 
-def calcular_min(heroes, key):
-    if len(heroes) == 0:
+def calcular_min(lista, key):
+    if len(lista) == 0:
         return None
 
     min_valor = float('inf')
     heroe_min = None
 
-    for heroe in heroes:
+    for heroe in lista:
         if key in heroe:
             valor = float(heroe.get(key, 0))
         
@@ -102,17 +102,17 @@ def calcular_min(heroes, key):
 
     return heroe_min
 
-def calcular_max_min_dato(heroes, tipo_calculo, key):
+def calcular_max_min_dato(lista, tipo_calculo, key):
     if tipo_calculo == 'maximo':
-        return calcular_max(heroes, key)
+        return calcular_max(lista, key)
     elif tipo_calculo == 'minimo':
-        return calcular_min(heroes, key)
+        return calcular_min(lista, key)
     else:
         return None
 
 
-def stark_calcular_imprimir_heroe(heroes, tipo_calculo, key):
-    heroe_resultado = calcular_max_min_dato(heroes, tipo_calculo, key)
+def stark_calcular_imprimir_heroe(lista, tipo_calculo, key):
+    heroe_resultado = calcular_max_min_dato(lista, tipo_calculo, key)
 
     if heroe_resultado is None:
         return
@@ -120,16 +120,19 @@ def stark_calcular_imprimir_heroe(heroes, tipo_calculo, key):
     nombre_dato = obtener_nombre_y_dato(heroe_resultado, key)
     imprimir_dato(f"{tipo_calculo} {key} {nombre_dato}")
 
-def sumar_dato_heroe(heroes, key):
-    total = 0
-
-    for heroe in heroes:
-        if isinstance(heroe, dict) and heroe and key in heroe:
-            dato = heroe.get(key)
-            if isinstance(dato, (float)):
-                total += dato
-
-    return total
+def sumar_dato_heroe(lista, key):
+    suma = 0
+    
+    for heroe in lista:
+        if isinstance(heroe, dict) and heroe:
+            if key in heroe:
+                valor = heroe[key]
+                try:
+                    suma += float(valor)
+                except ValueError:
+                    print(f"El valor '{valor}' para la clave '{key}' no es un número válido.")
+    
+    return suma
 
 def dividir(dividendo, divisor):
     if divisor == 0:
@@ -137,30 +140,25 @@ def dividir(dividendo, divisor):
     else:
         return dividendo / divisor
 
-def calcular_promedio(heroes, key):
-    total = sumar_dato_heroe(heroes, key)
-    cantidad_heroes = len(heroes)
+def calcular_promedio(lista, key):
+    total = sumar_dato_heroe(lista, key)
+    cantidad_heroes = len(lista)
 
     if cantidad_heroes == 0:
         return 0
     else:
         return dividir(total, cantidad_heroes)
 
-def stark_calcular_imprimir_promedio_altura(heroes):
-    if len(heroes) == 0:
+def stark_calcular_imprimir_promedio_altura(lista):
+    if len(lista) == 0:
         return -1
 
-    suma_alturas = sumar_dato_heroe(heroes, 'altura')
-    cantidad_heroes = len(heroes)
-    if cantidad_heroes == 0:
-        return -1
-
-    promedio_altura = calcular_promedio(suma_alturas, cantidad_heroes)
+    promedio_altura = calcular_promedio(lista, 'altura')
     imprimir_dato(f"Promedio de altura: {promedio_altura}")
-
+    
 def imprimir_menu():
     menu = """
-    -- Menú --
+    -------- Menú ---------
     1. Obtener nombre de un héroe
     2. Imprimir lista de héroes
     3. Calcular máximo o mínimo de un dato
