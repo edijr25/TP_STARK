@@ -157,17 +157,15 @@ def stark_calcular_imprimir_promedio_altura(lista):
     imprimir_dato(f"Promedio de altura: {promedio_altura}")
     
 def imprimir_menu():
-    menu = """
+    menu2 = """
     -------- Menú ---------
-    1. Obtener nombre de un héroe
+    1. Obtener nombre de héroe
     2. Imprimir lista de héroes
-    3. Calcular máximo o mínimo de un dato
-    4. Calcular suma de un dato
-    5. Calcular promedio de un dato
-    6. Calcular y mostrar promedio de altura
-    7. Salir
+    3. Calcular máximo o mínimo (peso, altura)
+    4. Calcular y mostrar promedio de altura
+    5. Salir
     """
-    imprimir_dato(menu)
+    print (menu2)
 
 def validar_entero(numero):
     if numero.isdigit():
@@ -183,3 +181,26 @@ def stark_menu_principal():
         return int(opcion)
     else:
         return -1
+    
+
+def stark_marvel_app(lista_heroes):
+    import os
+    while True:
+        opcion = stark_menu_principal()
+        
+        if opcion == 1:
+            stark_imprimir_nombres_heroes(lista_heroes)
+        elif opcion == 2:
+            stark_imprimir_nombres_alturas(lista_heroes)
+        elif opcion == 3:
+            dato1 = input("Desea maximo o minimo: ")
+            dato2 = input("Dato a obtener (peso o altura): ")
+            stark_calcular_imprimir_heroe(lista_heroes, dato1, dato2)
+        elif opcion == 4:
+            stark_calcular_imprimir_promedio_altura(lista_heroes)
+        elif opcion == 5:
+            break
+        else:
+            print("Opción incorrecta. Por favor, seleccione una opción válida.")
+        os.system("pause")
+        os.system("cls")
