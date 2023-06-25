@@ -255,7 +255,6 @@ def heroeMenosPesado (lista):
 ##Función filtrar_heroes (lista: list, key: str, color: str) -> list:
 ##Se encarga de filtrar y crear una lista con los valores que se le asignan
 ##Recibe parametros tipo list, str, str e imprime una list
-
 def filtrar_heroes (lista: list, key: str, color: str) -> list:
     lista_filtrada = []
     for heroe in lista:
@@ -266,7 +265,6 @@ def filtrar_heroes (lista: list, key: str, color: str) -> list:
 ## Funcion contar_colores(lista: str, title: str) ->None:
 ## se encargar de contar los colores e imprimirlos en forma de tabla
 ##Recibe como parametros una list, str
-
 def contar_colores(lista: list, title: str) ->None:
     contador_colores = {}
     for color_ojos in lista:
@@ -288,7 +286,6 @@ def contar_colores(lista: list, title: str) ->None:
 ##Funcion agrupar_por_tipo (lista: str, key: str, title:str)->:
 ## se encarga de agrupar los superHeroes segun el parametro que le pasen
 ##ya sea color de pelo, color de ojos, tipo de inteligencia e imprime el mismo segun el grupo y su nombre
-
 def agrupar_por_tipo (lista, key, title):
     grupos = {}
     for heroe in lista:
